@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    font-family: 'Press Start 2P', cursive;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.loading-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Video filling the entire background */
+.bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* Minimal dark overlay to ensure tip readability */
+.minimal-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+    z-index: -1;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Minimalist thin-line spinner */
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgba(0, 243, 255, 0.1);
+    border-top: 2px solid #00f3ff;
+    border-radius: 50%;
+    animation: rotate 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    filter: drop-shadow(0 0 8px #00f3ff);
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Tip text styling */
+.fade-in-tip {
+    color: #fff;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    max-width: 80%;
+    text-align: center;
+    line-height: 1.6;
+    animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 0.8; transform: translateY(0); }
+}

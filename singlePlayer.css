@@ -1,0 +1,832 @@
+:root {
+    /* Refined Aesthetic Colors */
+    --bg-dark: #1a1a1a;
+    --text-light: #E0E0E0;
+    --color-play: #c2185b; 
+
+    /* Vibrant Level Colors */
+    --color-easy: #00FFCC; /* Bright Teal */
+    --color-medium: #FFD700; /* Gold/Yellow */
+    --color-hard: #FF4500; /* Vibrant Orange-Red */
+
+    /* Time Bar Gradient: Neon Purple to Aqua */
+    --color-time-start: #8a2be2; 
+    --color-time-end: #00ffff; 
+    
+    /* Pixelated Border/Shadow Colors */
+    --pixel-shadow-dark: #333d52;
+    --pixel-highlight-light: #7A7A7A;
+
+    /* Base dark color for screen shake */
+    --bg-bomb-hit: #191919; 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* FULL SCREEN & BASE STYLES */
+html, body {
+    width: 100%;
+    height: 100%;
+    /* Ensure the pixel font is used for the game aesthetic */
+    font-family: 'Press Start 2P', cursive;
+    /* Removed background-color here, as .sky/.ground define the visual background */
+    background-color: var(--bg-dark); 
+    color: var(--text-light);
+    overflow: hidden;
+    text-align: center;
+}
+
+h1 {
+    display: none;
+}
+
+/* ----------------------------------------------------------------- */
+/* 🌙 PIXELATED NIGHT BACKGROUND */
+/* ----------------------------------------------------------------- */
+
+:root {
+    /* Speed of the day/night cycle */
+    --cycle-speed: 15s; 
+    /* Base cloud color that will be animated */
+    --cloud-color: #ffffff;
+}
+
+.background-scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* --- SKY WITH DAY/NIGHT ANIMATION --- */
+.sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background-color: #50d5ff;
+    overflow: hidden;
+    animation: skyShift var(--cycle-speed) linear infinite;
+}
+
+/* --- GROUND WITH DAY/NIGHT ANIMATION --- */
+.ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background-color: #10d000;
+    animation: groundShift var(--cycle-speed) linear infinite;
+}
+
+/* --- CLOUDS BASE --- */
+.cloud {
+    position: absolute;
+    background: var(--cloud-color);
+    width: 15px;
+    height: 15px;
+    border-radius: 0;
+    opacity: 0.85; 
+    /* Two animations: movement and color shift */
+    animation: moveClouds linear infinite, cloudShift var(--cycle-speed) linear infinite;
+    border: 1px solid var(--cloud-color);
+}
+
+/* --- DAY/NIGHT INTERCHANGE LOGIC --- */
+
+@keyframes skyShift {
+    0%, 100%, 40% { background-color: #50d5ff; } /* Day Blue */
+    50%, 90% { background-color: #0b1021; }      /* Night Navy */
+}
+
+@keyframes groundShift {
+    0%, 100%, 40% { background-color: #10d000; } /* Day Green */
+    50%, 90% { background-color: #054d00; }      /* Night Dark Green */
+}
+
+@keyframes cloudShift {
+    0%, 100%, 40% { 
+        --cloud-color: #ffffff; 
+        opacity: 0.85;
+    } 
+    50%, 90% { 
+        --cloud-color: #4b5b7a; /* Night Muted Grey */
+        opacity: 0.6;
+    }
+}
+
+/* --- INDIVIDUAL CLOUDS (All using var(--cloud-color)) --- */
+
+.cloud-1 { top: 15%; left: -20%; animation-duration: 25s, var(--cycle-speed); --scale: 2.0; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color), 15px 15px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color);}
+
+.cloud-2 { top: 35%; left: -50%; animation-duration: 35s, var(--cycle-speed); --scale: 3.0; box-shadow: 15px -30px 0 var(--cloud-color), 30px -30px 0 var(--cloud-color), 45px -30px 0 var(--cloud-color), 0px -15px 0 var(--cloud-color), 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 60px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color), 75px 0px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color), 45px 15px 0 var(--cloud-color);}
+
+.cloud-3 { top: 25%; left: -10%; animation-duration: 30s, var(--cycle-speed); --scale: 1.8; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color);}
+
+.cloud-4 { top: 5%; left: -80%; animation-duration: 40s, var(--cycle-speed); --scale: 2.5; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 15px 15px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color);}
+
+.cloud-5 { top: 50%; left: -100%; animation-duration: 20s, var(--cycle-speed); --scale: 1.2; box-shadow: 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color);}
+
+.cloud-6 { top: 10%; left: -30%; animation-duration: 45s, var(--cycle-speed); --scale: 1.5; box-shadow: 15px -30px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color);}
+
+.cloud-7 { top: 40%; left: -120%; animation-duration: 38s, var(--cycle-speed); --scale: 2.1; box-shadow: 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 15px 15px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color);}
+
+.cloud-8 { top: 5%; left: -60%; animation-duration: 50s, var(--cycle-speed); --scale: 1.0; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color);}
+
+.cloud-9 { top: 45%; left: -10%; animation-duration: 22s, var(--cycle-speed); --scale: 1.3; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color);}
+
+.cloud-10 { top: 30%; left: -90%; animation-duration: 33s, var(--cycle-speed); --scale: 2.3; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 60px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color);}
+
+@keyframes moveClouds {
+    0% { transform: translateX(-100%) scale(var(--scale, 1)); }
+    100% { transform: translateX(200vw) scale(var(--scale, 1)); }
+}
+
+html, body {
+    background-color: transparent;
+}
+ 
+
+
+
+
+/* ----------------------------------------------------------------- */
+/* 🎮 HUD, SCORE, TIME BAR */
+/* ----------------------------------------------------------------- */
+
+.hud {
+    font-family: 'Press Start 2P', cursive;
+    color: #f0f0f0;
+    
+    position: absolute; 
+    top: 20px; 
+    right: 20px; 
+    z-index: 100; /* Ensure HUD is on top of background */
+    
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-end;
+}
+
+.top-row {
+    display: flex;
+    align-items: center;
+    gap: 0; 
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+/* --- Glowing Star Styles (LARGE) --- */
+.score-container {
+    position: relative;
+    width: 65px; 
+    height: 65px; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;   
+    background: transparent;
+    font-size: 2rem; 
+    font-weight: bold;
+    margin-right: -10px; 
+}
+
+.score-container::before {
+    content: '⭐';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 4.5rem; 
+    line-height: 1; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-shadow: 
+        0 0 10px rgba(255, 255, 0, 0.8),
+        0 4px 6px rgba(100, 50, 0, 0.4), 
+        0 -2px 0 #ffeb99; 
+    z-index: 0;
+}
+
+.score-container .score {
+    z-index: 1; 
+    position: relative; 
+    color: #333; 
+    font-weight: 900;
+    font-size: 1.5rem; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); 
+}
+
+/* --- ⌛ TIME BAR CONTAINER --- */
+.timer-bar-container {
+    width: 200px; 
+    height: 45px;
+    background: #333d52; 
+    overflow: hidden;
+
+    /* Aesthetic Pixel Art Border - Using CSS Variables where possible */
+    border-radius: 8px; 
+    border: 2px solid var(--pixel-shadow-dark); 
+    
+    box-shadow: 
+        4px 4px 0 0 var(--pixel-shadow-dark), 
+        inset 2px 2px 0 0 #ff9944, 
+        inset -2px -2px 0 0 #8d4f1c; 
+}
+
+.time-left {
+    height: 100%;
+    border-radius: 0; 
+    /* Aesthetic Gradient fill - Using CSS Variables */
+    background: linear-gradient(to right, var(--color-time-start), var(--color-time-end)); 
+    transition: width 0.5s ease-out;
+}
+
+/* ----------------------------------------------------------------- */
+/* 🎯 LEVEL BUTTONS */
+/* ----------------------------------------------------------------- */
+
+.levels {
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center; 
+    gap: 15px; 
+    font-size: 10px; 
+}
+
+.levels input[type="radio"] {
+    display: none; 
+}
+
+.levels label {
+    background-color: #222; 
+    color: var(--text-light); 
+    padding: 10px 18px; 
+    border-radius: 8px; 
+    border: 2px solid var(--text-light); 
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); 
+    
+    cursor: pointer;
+    transition: all 0.1s ease-out; 
+    white-space: nowrap; 
+    text-transform: uppercase; 
+    letter-spacing: 0; 
+}
+
+.levels label:hover {
+    background-color: #333;
+}
+
+.levels input[type="radio"]:checked + label {
+    background-color: #000;
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* --- Custom Radio Buttons (Circles) --- */
+.levels label::before {
+    content: ' '; 
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--text-light); 
+    border-radius: 50%; 
+    margin-right: 8px; 
+    vertical-align: middle;
+    background-color: transparent; 
+    transition: all 0.1s ease-out;
+}
+
+/* Aesthetic Individual text colors - Using original colors for aesthetic match, but they can be replaced by --color-easy/medium/hard */
+#easy + label { color: hsl(323, 65%, 48%); } 
+#medium + label { color:hsl(323, 65%, 48%); } 
+#hard + label { color: hsl(323, 65%, 48%); } 
+
+/* Aesthetic Checked circle colors */
+#easy:checked + label::before,
+#medium:checked + label::before,
+#hard:checked + label::before {
+    background-color: #ffffff; 
+    border-color: #ffffff; 
+}
+
+
+/* ----------------------------------------------------------------- */
+/* 🏠 HOME BUTTON & CONTEXT MENU */
+/* ----------------------------------------------------------------- */
+
+.home-button-container {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000; /* Highest Z-index for controls */
+    animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.home-icon {
+    width: 200px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.home-button {
+    background-color: transparent; 
+    border: none; 
+    padding: 0; 
+}
+
+/* --- Context Menu Styling --- */
+.context-menu {
+    position: absolute;
+    bottom: 100%; 
+    right: 0;
+    margin-bottom: 10px; 
+    
+    background: #333; 
+    border: 2px solid #fff; 
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 150px;
+    z-index: 1001; 
+}
+
+.context-menu::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #333; 
+    bottom: -8px; 
+    right: 20px;
+}
+
+.menu-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+    font-family: 'Press Start 2P', cursive;
+    transition: background-color 0.2s;
+}
+
+.menu-btn:hover {
+    background: #0056b3;
+}
+
+/* ----------------------------------------------------------------- */
+/* 2. RESPONSIVE GAME BOARD & MOLES */
+/* ----------------------------------------------------------------- */
+.game {
+    width: 90vw;
+    max-width: 700px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 160px);
+    gap: 15px;
+
+    margin: 200px auto 0 auto;
+    padding-top: 0;
+    z-index: 50; /* Ensure game board is above the background */
+}
+
+/* Holes */
+.hole {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 15px;
+}
+
+/* Hole graphic */
+.hole::after {
+    content: "";
+    background: url("images/hole.png") bottom center no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+}
+
+/* Mole as a real div */
+.mole {
+    position: absolute;
+    bottom: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    background: url("images/mole.png") bottom center no-repeat;
+    background-size: contain;
+    transition: bottom 0.25s ease-out;
+    z-index: 5;
+    pointer-events: all;
+    overflow: visible;
+}
+
+/* When mole pops */
+.hole.up .mole {
+    bottom: 20px; 
+}
+
+/* Mole hit red flash */
+.mole.hit {
+    animation: hitRed 0.15s ease-out;
+}
+@keyframes hitRed {
+    0% { filter: brightness(2) drop-shadow(0 0 4px red); transform: scale(1.1);}
+    100% { filter: brightness(1); transform: scale(1);}
+}
+
+/* Pixelated burst / Minecraft style */
+.burst {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    z-index: 10;
+    image-rendering: pixelated; 
+    animation: burstPixel 0.7s forwards;
+}
+
+/* Fade out and spread */
+@keyframes burstPixel {
+    0% {
+        opacity: 1; 
+        transform: translate(0,0) scale(1);
+    }
+    50% {
+        opacity: 0.8; 
+    }
+    100% {
+        opacity: 0.3; 
+        transform: translate(calc(var(--x,0)*1px), calc(var(--y,0)*1px)) scale(0.5);
+    }
+}
+
+/* Bomb styling */
+.bomb {
+    position: absolute;
+    bottom: -120px; 
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 6rem;
+    pointer-events: all;
+    transition: bottom 0.25s ease-out;
+    z-index: 5;
+}
+
+/* Show bomb when hole is active */
+.hole.up .bomb {
+    bottom: 20px;
+}
+
+
+/* Fullscreen red flash + shake animation */
+body.bomb-hit {
+    animation: shakeRed 0.4s ease-in-out;
+}
+
+@keyframes shakeRed {
+    0%  { transform: translate(0,0); background-color: #ff0000; }
+    20% { transform: translate(-10px, 5px); }
+    40% { transform: translate(10px, -5px); }
+    60% { transform: translate(-10px, 5px); }
+    80% { transform: translate(10px, -5px); }
+    100% { transform: translate(0,0); background-color: var(--bg-bomb-hit); } /* Use variable for clean return */
+}
+
+
+/* ----------------------------------------------------------------- */
+/* 📣 LIVE FEED / CHAT BOX */
+/* ----------------------------------------------------------------- */
+
+.live-feed {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 260px;
+    height: 240px;
+    padding: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    
+    font-family: "Poppins", Arial, sans-serif;
+    color: white;
+    z-index: 100; /* Ensure feed is on top */
+}
+
+/* SCROLLBAR SMALL + CUTE */
+.live-feed::-webkit-scrollbar {
+    width: 4px;
+}
+.live-feed::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.4);
+    border-radius: 10px;
+}
+
+/* INDIVIDUAL MESSAGE */
+.msg {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+
+    animation: fadeIn 0.35s ease;
+}
+
+/* PROFILE EMOJI */
+.msg .pfp {
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+}
+
+/* TEXT BLOCK */
+.textblock {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.action {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* FADE-IN ANIMATION */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(6px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* Name in blue */
+.live-feed .name {
+    color: #4db1ff; 
+    font-weight: bold;
+}
+
+
+.timestamp {
+    display: block; 
+    font-size: 10px; 
+    opacity: 0.6; 
+    margin-top: 2px; 
+    text-align: left; 
+}
+
+
+
+
+
+
+
+
+
+/* ============================================================
+   1. GAME OVERLAY (Compact)
+   ============================================================ */
+
+.game-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    animation: overlayFadeIn 0.3s ease forwards;
+}
+
+
+/* ============================================================
+   2. RESULT PANEL (EXTRA SMALL)
+   ============================================================ */
+
+.result-panel {
+    width: 320px;              /* VERY SMALL */
+    background: #050505;
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+    border: 2px solid #00f3ff;
+    box-shadow:
+        0 0 10px #00f3ff,
+        inset 0 0 6px #00f3ff;
+    animation: panelBounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+}
+
+
+/* ============================================================
+   3. STARS (Smaller)
+   ============================================================ */
+
+.stars {
+    font-size: 32px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    filter: drop-shadow(0 0 6px #ff00ff);
+}
+
+.star-anim {
+    animation: starPulse 1.4s infinite ease-in-out;
+}
+
+.star-anim:nth-child(2) { animation-delay: .1s; }
+.star-anim:nth-child(3) { animation-delay: .2s; }
+.star-anim:nth-child(4) { animation-delay: .3s; }
+.star-anim:nth-child(5) { animation-delay: .4s; }
+
+
+/* ============================================================
+   4. RESULT BANNER (Mini)
+   ============================================================ */
+
+.result-banner {
+    background: linear-gradient(90deg, #ff0055, #ff00ff, #ff0055);
+    background-size: 200% auto;
+    animation: bannerShimmer 2s linear infinite;
+    color: #fff;
+    padding: 8px 26px;
+    font-size: 18px;
+    font-weight: 900;
+    display: inline-block;
+    box-shadow: 0 0 8px #ff0055;
+    margin-bottom: 18px;
+    transform: skewX(-8deg);
+}
+
+
+/* ============================================================
+   5. SCORE BOX (Compact)
+   ============================================================ */
+
+.final-scores {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.final-box {
+    background: #fff;
+    padding: 18px 14px;
+    width: 170px;
+    border-radius: 22px;
+    border: 2px dashed #9dcf81;
+}
+
+.coin-icon {
+    width: 65px;
+    margin-bottom: 8px;
+    animation: float 2.2s infinite ease-in-out;
+}
+
+.final-value {
+    font-size: 34px;
+    color: #33a300;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.final-label {
+    font-size: 11px;
+    color: #666;
+    margin-top: 6px;
+}
+
+
+/* ============================================================
+   6. BUTTONS (Tiny Arcade)
+   ============================================================ */
+
+.final-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.final-btn {
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 9px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: 0.1s;
+}
+
+.final-btn.replay {
+    background: #14b88a;
+    box-shadow: 0 4px 0 #0d8a68;
+}
+
+.final-btn.home {
+    background: #e84a4a;
+    box-shadow: 0 4px 0 #b33636;
+}
+
+.final-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+}
+
+
+/* ============================================================
+   7. KEYFRAMES
+   ============================================================ */
+
+@keyframes overlayFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes panelBounce {
+    0% { transform: scale(0.7) translateY(-80px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes starPulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+@keyframes bannerShimmer {
+    from { background-position: -200% center; }
+    to { background-position: 200% center; }
+}
+
+/* The Score Number */
+.score {
+    color: #4CAF50; /* That vibrant green from your image */
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 2px 2px 0px #000; /* Subtle pixel shadow */
+    display: inline-block;
+    transition: transform 0.1s ease;
+}
+
+/* The "Pop" effect when the number changes */
+.score-pop {
+    transform: scale(1.3); /* Makes it jump slightly */
+    filter: brightness(1.2);
+    text-shadow: 0 0 10px #4CAF50; /* Adds a green glow while counting */
+}

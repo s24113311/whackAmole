@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whack-a-Mole Two-Player Emojis</title>
+
+    <link rel="stylesheet" href="multiPlayer.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Background Scene -->
+    <div class="background-scene">
+        <div class="sky">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+            <div class="cloud cloud-4"></div>
+            <div class="cloud cloud-5"></div>
+            <div class="cloud cloud-6"></div>
+            <div class="cloud cloud-7"></div>
+            <div class="cloud cloud-8"></div>
+            <div class="cloud cloud-9"></div>
+            <div class="cloud cloud-10"></div>
+        </div>
+        <div class="ground"></div>
+    </div>
+
+    <!-- Global Timer -->
+    <div class="global-timer-bar">
+        <div class="time-left"></div>
+    </div>
+
+    <!-- Player HUDs -->
+    <div class="hud player-1-hud">
+        <div class="top-row">
+            <div class="player-label" style="color: var(--player1-color);">P1 (SPACE)</div>
+            <div class="score-container">
+                <span class="score player-1-score">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="hud player-2-hud">
+        <div class="top-row">
+            <div class="player-label" style="color: var(--player2-color);">P2 (ENTER)</div>
+            <div class="score-container">
+                <span class="score player-2-score">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home / Menu Controls -->
+    <div class="home-button-container">
+        <div id="controlMenu" class="context-menu" style="display: none;">
+            <button id="menuActionBtn" class="menu-btn action-start"></button>
+            <button id="menuHomeBtn" class="menu-btn action-home">HOME</button>
+        </div>
+
+        <button class="home-button" id="playBtn">
+            <img src="images/home.png" alt="Game Control" class="home-icon">
+        </button>
+        <a href="index.html" id="homeLink" onclick="event.preventDefault()"></a>
+    </div>
+
+    <!-- Game Holes -->
+    <div class="game">
+        <!-- Row 1 -->
+        <div class="hole player-1-side" data-player="1" data-key=" ">
+            <div class="entity"></div>
+        </div>
+        <div class="hole neutral-side" data-player="0">
+            <div class="entity"></div>
+        </div>
+        <div class="hole player-2-side" data-player="2" data-key="enter">
+            <div class="entity"></div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="hole player-1-side" data-player="1" data-key=" ">
+            <div class="entity"></div>
+        </div>
+        <div class="hole neutral-side" data-player="0">
+            <div class="entity"></div>
+        </div>
+        <div class="hole player-2-side" data-player="2" data-key="enter">
+            <div class="entity"></div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="hole player-1-side" data-player="1" data-key=" ">
+            <div class="entity"></div>
+        </div>
+        <div class="hole neutral-side" data-player="0">
+            <div class="entity"></div>
+        </div>
+        <div class="hole player-2-side" data-player="2" data-key="enter">
+            <div class="entity"></div>
+        </div>
+    </div>
+
+    <!-- Live Feed -->
+    <div class="live-feed"></div>
+ 
+    <!-- Flash Effects -->
+    <div id="bomb-flash"></div>
+    <div id="wrong-hit-flash"></div>
+
+
+
+
+    
+
+<div id="gameOverOverlay" class="game-overlay" style="display: none;">
+    <div class="result-panel">
+        <div class="header-area">
+            <div class="stars">
+                <span class="star-anim">⭐</span>
+                <span class="star-anim">⭐</span>
+                <span class="star-anim">⭐</span>
+                <span class="star-anim">⭐</span>
+                <span class="star-anim">⭐</span>
+            </div>
+            <div class="result-banner">MATCH COMPLETE!</div>
+        </div>
+
+
+
+        <div class="score-section">
+            <div class="score-box p1-box">
+                <img src="images/money.png" class="coin-icon">
+                <div class="score-data">
+                    <div class="final-value p1-final-score">0</div>
+                    <div class="final-label">PLAYER 1</div>
+                </div>
+            </div>
+
+            <div class="score-divider">VS</div>
+
+            <div class="score-box p2-box">
+                <img src="images/angry.png" class="coin-icon">
+                <div class="score-data">
+                    <div class="final-value p2-final-score">0</div>
+                    <div class="final-label">PLAYER 2</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-actions">
+            <button id="restartGameBtn" class="final-btn replay">REPLAY</button>
+            <button id="goHomeBtn" class="final-btn home">HOME</button>
+        </div>
+    </div>
+</div>
+
+<audio id="victoryMusic" src="sound/score.mp3" preload="auto"></audio>
+
+    <script src="multiPlayer.js"></script>
+    
+</body>
+</html>

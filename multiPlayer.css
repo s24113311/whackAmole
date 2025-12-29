@@ -1,0 +1,1047 @@
+:root {
+    /* Refined Aesthetic Colors */
+
+    --text-light: #E0E0E0;
+    --color-play: #c2185b; 
+
+    /* Vibrant Level Colors */
+    --color-easy: #00FFCC; 
+    --color-medium: #FFD700; 
+    --color-hard: #FF4500; 
+
+    /* Time Bar Gradient: Neon Purple to Aqua */
+    --color-time-start: #8a2be2; 
+    --color-time-end: #00ffff; 
+    
+    /* Pixelated Border/Shadow Colors */
+    --pixel-shadow-dark: #333d52;
+    --pixel-highlight-light: #7A7A7A;
+
+    /* Base dark color for screen shake */
+    --bg-bomb-hit: #191919; 
+
+    /* NEW Player Colors */
+    --player1-color: #00bcd4; /* Cyan */
+    --player2-color: #ff9800; /* Orange */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* FULL SCREEN & BASE STYLES */
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--bg-dark); 
+    color: var(--text-light);
+    overflow: hidden;
+    text-align: center;
+}
+
+/* ----------------------------------------------------------------- */
+/* 🌙 PIXELATED NIGHT BACKGROUND */
+/* ----------------------------------------------------------------- */
+:root {
+    /* Define the timing for the whole cycle (e.g., 10s for a full day/night) */
+    --cycle-speed: 20s; 
+}
+
+/* --- BACKGROUND WRAPPER --- */
+.background-scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* --- SKY ANIMATION --- */
+.sky {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 60%;
+    animation: skyShift var(--cycle-speed) linear infinite;
+    overflow: hidden;
+}
+
+/* --- GROUND ANIMATION --- */
+.ground {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 40%;
+    animation: groundShift var(--cycle-speed) linear infinite;
+}
+
+/* CLOUDS (Example, assuming you have the full CSS) */
+/* (Styles for .cloud classes and animation keyframes go here) */
+
+
+/* ----------------------------------------------------------------- */
+/* 🎮 DUAL HUD STYLES */
+/* ----------------------------------------------------------------- */
+
+.hud {
+    font-family: 'Press Start 2P', cursive;
+    color: #f0f0f0;
+    position: absolute; 
+    top: 0px; 
+    z-index: 100;
+    display: flex;
+    flex-direction: column; 
+}
+
+/* ----------------------------------------------------------------- */
+/* ⏱️ GLOBAL FULL-WIDTH TIMER BAR */
+/* ----------------------------------------------------------------- */
+
+.global-timer-bar {
+    position: absolute;
+    top: 0; /* Align to the very top */
+    left: 0;
+    width: 100%; /* Stretch full width */
+    height: 12px; /* Set a clean, visible height */
+    z-index: 101; /* Ensure it's above everything */
+    
+    /* Aesthetics for the container (the "empty" part of the bar) */
+    background-color: var(--pixel-shadow-dark); /* Dark background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Subtle shadow */
+    overflow: hidden;
+}
+
+/* The moving fill of the timer bar */
+.global-timer-bar .time-left {
+    height: 100%;
+    /* Use your existing neon gradient variables */
+    background: linear-gradient(90deg, var(--color-time-start), var(--color-time-end));
+    transition: width 1s linear;
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------- */
+/* 🎮 DUAL HUD STYLES (REPOSITIONED) */
+/* ----------------------------------------------------------------- */
+/* (Keeping the HUD positioning the same) */
+
+.hud {
+    /* ... existing font, color, display properties ... */
+    position: absolute; 
+    top: 25px; /* Pushed down below the global timer bar */
+    z-index: 100;
+    display: flex;
+    flex-direction: column; 
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 0, 0, 0.3); 
+}
+
+/* Player 1 HUD on the left */
+.player-1-hud {
+    left: 20px;
+    align-items: flex-start;
+}
+.player-1-hud .top-row {
+    /* Set back to normal order: Label then Score */
+    flex-direction: row; 
+}
+
+/* Player 2 HUD on the right (Mirrored layout) */
+.player-2-hud {
+    right: 20px;
+    align-items: flex-end;
+}
+.player-2-hud .top-row {
+    /* Mirrored order: Score then Label */
+    flex-direction: row-reverse;
+}
+
+.player-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 2px 2px 0px var(--pixel-shadow-dark), 0 0 10px currentColor; 
+    white-space: nowrap;
+}
+
+.top-row {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    margin-bottom: 0; /* Remove extra vertical spacing */
+    padding: 5px 10px;
+}
+
+/* --- SCORE DISPLAY (Star Container) --- */
+
+.score-container {
+    /* Define the area for the Star icon */
+    width: 60px; 
+    height: 60px;
+    padding: 0;
+    
+    /* CRITICAL for Pop Animation: Must be relative and overflow visible */
+    position: relative; 
+    overflow: visible; 
+    z-index: 2; 
+
+    /* Star Visual Styling (Assumes --star-gold, etc., are in :root) */
+    background: linear-gradient(135deg, var(--star-highlight) 0%, var(--star-gold) 40%, var(--star-shadow-dark) 100%);
+    border-radius: 50%; /* Starts as a circle */
+
+    /* 3D and Glow Effect */
+    box-shadow: 
+        0 0 10px 1px var(--star-gold), /* Outer glow */
+        0 4px 0px 0px var(--pixel-shadow-dark); /* Dark bottom shadow */
+
+}
+
+/* The actual score number inside the star */
+.score-container .score {
+    /* CRITICAL: Positioning for unclipped scaling */
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centers perfectly */
+    
+    /* Base Score text style */
+    font-size: 2rem; 
+    font-weight: bold; /* Added bold for visibility */
+    text-shadow: 1px 1px 0px #fff; 
+    
+    /* Optimizes animation performance */
+    will-change: transform, filter; 
+}
+
+/* ----------------------------------------------------------------- */
+/* 🆕 FIX: Ensure Score Text is Visible and Distinct from each other */
+/* ----------------------------------------------------------------- */
+
+.player-1-hud .score {
+    /* P1 score color set to match blue HUD text color (00bcd4 is blueish-cyan) */
+    color: #00bcd4; 
+    text-shadow: 1px 1px 0px #fff, 0 0 5px #00bcd4; 
+}
+
+.player-2-hud .score {
+    /* P2 score color set to match orange HUD text color (ff9800 is orange) */
+    color: #ff9800; 
+    text-shadow: 1px 1px 0px #fff, 0 0 5px #ff9800; 
+}
+
+
+@keyframes scorePop {
+    0% { transform: scale(1) translate(-50%, -50%); filter: brightness(1); }
+    50% { 
+        transform: scale(2.0) translate(-25%, -25%); /* Adjusted translate to keep centered during pop */
+        filter: brightness(3.5) drop-shadow(0 0 25px #FFFF00); 
+    }
+    100% { transform: scale(1) translate(-50%, -50%); filter: brightness(1); }
+}
+
+.score-pop { animation: scorePop 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+
+
+
+
+
+
+
+
+
+
+/* --- REMOVE OLD TIMER BAR STYLES --- */
+.timer-bar-container {
+    display: none; /* Hide if still present in HTML */
+}
+/* ----------------------------------------------------------------- */
+/* 🏠 HOME BUTTON & CONTEXT MENU */
+/* ----------------------------------------------------------------- */
+
+.home-button-container {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000; /* Highest Z-index for controls */
+    animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.home-icon {
+    width: 200px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.home-button {
+    background-color: transparent; 
+    border: none; 
+    padding: 0; 
+}
+
+/* --- Context Menu Styling --- */
+.context-menu {
+    position: absolute;
+    bottom: 100%; 
+    right: 0;
+    margin-bottom: 10px; 
+    
+    background: #333; 
+    border: 2px solid #fff; 
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 150px;
+    z-index: 1001; 
+}
+
+.context-menu::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #333; 
+    bottom: -8px; 
+    right: 20px;
+}
+
+.menu-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+    font-family: 'Press Start 2P', cursive;
+    transition: background-color 0.2s;
+}
+
+.menu-btn:hover {
+    background: #0056b3;
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------- */
+/* 2. GAME BOARD & ENTITIES (EMOJIS) */
+/* ----------------------------------------------------------------- */
+.game {
+    width: 90vw;
+    max-width: 700px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 160px);
+    gap: 15px;
+
+    margin: 200px auto 0 auto;
+    padding-top: 0;
+    z-index: 50; 
+}
+
+/* Holes */
+.hole {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 15px;
+}
+
+.hole::after {
+    content: "";
+    background: url("images/hole.png") bottom center no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+}
+
+/* The Entity (Mole/Bomb EMOJI) */
+.entity {
+    position: absolute;
+    bottom: -120px; 
+    left: 50%;
+    transform: translateX(-50%);
+    
+    font-size: 6rem; 
+    line-height: 1; 
+    width: 120px;
+    height: 120px;
+    
+    pointer-events: all;
+    transition: bottom 0.25s ease-out;
+    z-index: 5;
+    
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+}
+
+/* When entity pops up */
+.hole.up .entity {
+    bottom: 20px; 
+}
+
+/* Hit flash animation for the emoji */
+.entity.hit {
+    animation: hitFlash 0.15s ease-out;
+}
+@keyframes hitFlash {
+    0% { filter: drop-shadow(0 0 10px yellow) brightness(2); transform: scale(1.1);}
+    100% { filter: none; transform: scale(1);}
+}
+
+/* FULL SCREEN & BASE STYLES */
+html, body {
+width: 100%;
+ height: 100%;
+font-family: 'Press Start 2P', cursive;
+background-color: var(--bg-dark); 
+color: var(--text-light);
+ overflow: hidden; /* This hides scrollbars, but not always horizontal shake overflow */
+ text-align: center;
+}
+
+
+
+/* ----------------------------------------------------------------- */
+/* 📣 LIVE FEED */
+/* ----------------------------------------------------------------- */
+.live-feed {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    width: 250px;
+    height: 300px; 
+    padding: 8px;
+    background-color: rgba(78, 70, 70, 0.097);
+    border-radius: 10px;
+    overflow-y: scroll;
+    font-size: 0.7rem;
+    color: #0d0b0b;
+    text-align: left;
+    z-index: 100;
+}
+
+/* Hide scrollbars */
+.live-feed::-webkit-scrollbar {
+    display: none;
+}
+.live-feed {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+.msg {
+    display: flex;
+    align-items: center;
+    padding: 3px 0;
+    border-bottom: 1px solid #444;
+}
+
+.msg:last-child {
+    border-bottom: none;
+}
+
+.pfp {
+    font-size: 1.2rem;
+    margin-right: 5px;
+    flex-shrink: 0;
+}
+
+.textblock {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.action {
+    color: #eee;
+    font-style: italic;
+}
+
+.timestamp {
+    color: #888;
+    font-size: 0.5rem;
+}
+
+
+
+
+
+
+
+/* ============================================================
+   ENTITY HIT FLASHES (Cleaner, smoother, stronger)
+============================================================ */
+.entity.star-hit {
+    animation: starFlash 0.28s cubic-bezier(0.22, 1.4, 0.56, 1) forwards;
+}
+@keyframes starFlash {
+    0% {
+        filter: drop-shadow(0 0 20px gold) brightness(2.3);
+        transform: scale(1.35);
+    }
+    100% {
+        filter: none;
+        transform: scale(1);
+    }
+}
+
+.entity.correct-hit {
+    animation: correctHit 0.28s cubic-bezier(0.22, 1.4, 0.56, 1) forwards;
+}
+@keyframes correctHit {
+    0% {
+        filter: drop-shadow(0 0 20px #00ff66) brightness(2.3);
+        transform: scale(1.4);
+    }
+    100% {
+        filter: none;
+        transform: scale(1);
+    }
+}
+
+.entity.wrong-hit {
+    animation: wrongHit 0.28s cubic-bezier(0.22, 1.4, 0.56, 1) forwards;
+}
+@keyframes wrongHit {
+    0% {
+        filter: drop-shadow(0 0 20px #ff2d2d) brightness(2.3);
+        transform: scale(1.4);
+    }
+    100% {
+        filter: none;
+        transform: scale(1);
+    }
+}
+
+
+
+
+/* ============================================================
+   ULTIMATE HIT FLOAT FX (Super smooth)
+============================================================ */
+.hit-fx {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, 0) scale(0.4);
+    font-size: 2.6rem;
+    font-family: 'Press Start 2P';
+    pointer-events: none;
+    z-index: 999;
+
+    /* AMAZING GLOW */
+    filter: drop-shadow(0 0 10px currentColor)
+            drop-shadow(0 0 22px currentColor)
+            drop-shadow(0 0 30px currentColor);
+
+    animation: hitPop 0.75s cubic-bezier(0.25, 1.6, 0.45, 1) forwards;
+}
+
+/* COLOR VARIANTS */
+.hit-fx.green { color: #00ff66; }
+.hit-fx.red   { color: #ff3b3b; }
+.hit-fx.gold  { color: #ffd700; }
+
+/* ============================================================
+   PARTICLE SPARKS — now with 4 bursts
+============================================================ */
+.hit-fx::before,
+.hit-fx::after,
+.hit-fx span.spark1,
+.hit-fx span.spark2 {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* These two added for more particles */
+.hit-fx span.spark1,
+.hit-fx span.spark2 {
+    display: block;
+}
+
+/* Four different explosion directions */
+.hit-fx::before  { animation: sparkLeft 0.55s ease-out forwards; }
+.hit-fx::after   { animation: sparkRight 0.55s ease-out forwards; }
+.hit-fx span.spark1 { animation: sparkUp 0.55s ease-out forwards; }
+.hit-fx span.spark2 { animation: sparkDown 0.55s ease-out forwards; }
+
+
+
+
+
+/* ============================================================
+   HIT POP ANIMATION (Better Smooth Float)
+============================================================ */
+@keyframes hitPop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 10px) scale(0.35);
+    }
+    25% {
+        opacity: 1;
+        transform: translate(-50%, -5px) scale(1.55);
+    }
+    55% {
+        transform: translate(-50%, -12px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -28px) scale(0.9);
+    }
+}
+
+/* ============================================================
+   PARTICLE MOVEMENTS (smoother trajectories)
+============================================================ */
+@keyframes sparkLeft {
+    0%   { transform: translate(-5px, -5px) scale(1); opacity: 1; }
+    100% { transform: translate(-30px, 12px) scale(0); opacity: 0; }
+}
+@keyframes sparkRight {
+    0%   { transform: translate(5px, -5px) scale(1); opacity: 1; }
+    100% { transform: translate(30px, 12px) scale(0); opacity: 0; }
+}
+@keyframes sparkUp {
+    0%   { transform: translate(0, -6px) scale(1); opacity: 1; }
+    100% { transform: translate(0, -30px) scale(0); opacity: 0; }
+}
+@keyframes sparkDown {
+    0%   { transform: translate(0, 3px) scale(1); opacity: 1; }
+    100% { transform: translate(0, 25px) scale(0); opacity: 0; }
+}
+
+
+
+
+/* --- CLOUDS BASE --- */
+.cloud {
+    position: absolute;
+    --cloud-color: #ffffff; /* Initial color */
+    background: var(--cloud-color);
+    width: 15px; height: 15px;
+    border-radius: 0;
+    opacity: 0.85; 
+    border: 1px solid var(--cloud-color);
+    /* Dual animation: movement (moveClouds) and color (cloudShift) */
+    animation: moveClouds linear infinite, cloudShift var(--cycle-speed) linear infinite;
+}
+
+/* --- DAY/NIGHT INTERCHANGE KEYFRAMES --- */
+
+@keyframes skyShift {
+    0%, 100%, 40% { background-color: #50d5ff; } /* Day Blue */
+    50%, 90% { background-color: #0b1021; }      /* Night Navy */
+}
+
+@keyframes groundShift {
+    0%, 100%, 40% { background-color: #10d000; } /* Day Green */
+    50%, 90% { background-color: #054d00; }      /* Night Dark Green */
+}
+
+@keyframes cloudShift {
+    0%, 100%, 40% { 
+        --cloud-color: #ffffff; 
+        opacity: 0.85;
+    } 
+    50%, 90% { 
+        --cloud-color: #4b5b7a; /* Night Grey-Blue */
+        opacity: 0.6;
+    }
+}
+
+@keyframes moveClouds {
+    0% { transform: translateX(-100%) scale(var(--scale, 1)); }
+    100% { transform: translateX(200vw) scale(var(--scale, 1)); }
+}
+
+/* --- INDIVIDUAL CLOUD SHAPES (Fixed with variables) --- */
+
+.cloud-1 { top: 15%; left: -20%; animation-duration: 25s, var(--cycle-speed); --scale: 2.0; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color), 15px 15px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color);}
+
+.cloud-2 { top: 35%; left: -50%; animation-duration: 35s, var(--cycle-speed); --scale: 3.0; box-shadow: 15px -30px 0 var(--cloud-color), 30px -30px 0 var(--cloud-color), 45px -30px 0 var(--cloud-color), 0px -15px 0 var(--cloud-color), 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 60px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color), 75px 0px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color), 45px 15px 0 var(--cloud-color);}
+
+.cloud-3 { top: 25%; left: -10%; animation-duration: 30s, var(--cycle-speed); --scale: 1.8; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color);}
+
+.cloud-4 { top: 5%; left: -80%; animation-duration: 40s, var(--cycle-speed); --scale: 2.5; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 15px 15px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color);}
+
+.cloud-5 { top: 50%; left: -100%; animation-duration: 20s, var(--cycle-speed); --scale: 1.2; box-shadow: 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color);}
+
+.cloud-6 { top: 10%; left: -30%; animation-duration: 45s, var(--cycle-speed); --scale: 1.5; box-shadow: 15px -30px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color);}
+
+.cloud-7 { top: 40%; left: -120%; animation-duration: 38s, var(--cycle-speed); --scale: 2.1; box-shadow: 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 15px 15px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color);}
+
+.cloud-8 { top: 5%; left: -60%; animation-duration: 50s, var(--cycle-speed); --scale: 1.0; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color);}
+
+.cloud-9 { top: 45%; left: -10%; animation-duration: 22s, var(--cycle-speed); --scale: 1.3; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color);}
+
+.cloud-10 { top: 30%; left: -90%; animation-duration: 33s, var(--cycle-speed); --scale: 2.3; box-shadow: 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 60px -15px 0 var(--cloud-color), 0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color);}
+
+/* --- GLOBAL BODY TRANSPARENCY --- */
+html, body {
+    background-color: transparent;
+}
+
+
+/* ------------------------------------------------------------
+ * BASE STYLES FOR BOTH FLASH ELEMENTS
+ * ------------------------------------------------------------ */
+#bomb-flash,
+#wrong-hit-flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows user interaction underneath */
+    z-index: 1000;
+    
+    background: transparent; 
+    box-shadow: 0 0 0 0px transparent; /* Hidden shadow by default */
+    transition: box-shadow 0.1s ease-out; /* Smooth fade-out */
+}
+
+/* Base Active State: Disables transition for instant activation */
+#bomb-flash.active,
+#wrong-hit-flash.active {
+    transition: none; 
+    /* Use a massive box-shadow spread for full screen coverage */
+    /* This creates the red overlay. Adjust 5000px if needed for larger screens */
+    box-shadow: 0 0 0 5000px transparent; 
+}
+
+
+/* ------------------------------------------------------------
+ * 1. BOMB FLASH STYLES 💣 (Full Screen Strong Red Flash + Shake)
+ * ------------------------------------------------------------ */
+#bomb-flash.active {
+    /* Large spread to create a full-screen red effect */
+    box-shadow: 0 0 0 5000px #ff6b6b; /* Bright, strong red */
+}
+
+
+/* ------------------------------------------------------------
+ * 2. WRONG HIT FLASH STYLES 💥 (Full Screen Subtle Red Overlay)
+ * ------------------------------------------------------------ */
+#wrong-hit-flash.active {
+    /* Softer, lighter red/pink for wrong hits */
+    box-shadow: 0 0 0 5000px #ff98a3; 
+}
+
+
+/* ------------------------------------------------------------
+ * SCREEN SHAKE (Applied to the <html> element)
+ * ------------------------------------------------------------ */
+.shake {
+    animation: shake 0.35s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+
+
+
+
+/*coin butdtt*/
+/* --- PARTICLE BURST STYLES --- */
+
+.particle-burst {
+    position: absolute;
+    width: 8px; /* Size of the particle */
+    height: 8px;
+    border-radius: 50%;
+    z-index: 1000;
+    pointer-events: none;
+    
+    /* Default animation: fast, scatters outward */
+    animation: particle-fly 0.4s ease-out forwards;
+}
+
+/* Optional: Make bomb particles bigger */
+.bomb-burst {
+    width: 12px;
+    height: 12px;
+}
+
+/* --- KEYFRAMES --- */
+@keyframes particle-fly {
+    0% {
+        opacity: 1;
+        /* Starts at the center of the entity */
+        transform: translate(-50%, -50%) scale(1); 
+    }
+    100% {
+        opacity: 0;
+        /* Moves to the random X/Y destination */
+        transform: translate(var(--x), var(--y)) scale(0.2); 
+    }
+}
+
+/* ============================================================
+   1. OVERLAY WRAPPER – NEON GLASS
+   ============================================================ */
+/* ============================================================
+   1. OVERLAY WRAPPER – FROSTED GLASS
+   ============================================================ */
+.game-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, rgba(0, 40, 50, 0.55) 0%, rgba(0, 0, 0, 0.75) 100%);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    animation: overlayFadeIn 0.4s ease forwards;
+}
+
+/* ============================================================
+   2. RESULT PANEL – NEON ARCADE
+   ============================================================ */
+.result-panel {
+    width: 640px;
+    background: rgba(5,5,5,0.95);
+    border-radius: 30px;
+    padding: 30px;
+    text-align: center;
+    border: 3px solid #00f3ff;
+    box-shadow: 0 0 25px #00f3ff, inset 0 0 15px rgba(0, 243, 255, 0.4);
+    animation: panelPop 0.5s cubic-bezier(0.175,0.885,0.32,1.2);
+}
+
+/* ============================================================
+   3. HEADER AREA – STARS + BANNER
+   ============================================================ */
+.header-area {
+    margin-bottom: 25px;
+}
+
+.stars {
+    font-size: 30px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    filter: drop-shadow(0 0 12px #ff00ff);
+}
+
+.star-anim {
+    animation: starPulse 1.5s infinite ease-in-out;
+}
+
+.star-anim:nth-child(2) { animation-delay: .1s; }
+.star-anim:nth-child(3) { animation-delay: .2s; }
+.star-anim:nth-child(4) { animation-delay: .3s; }
+.star-anim:nth-child(5) { animation-delay: .4s; }
+
+.result-banner {
+    background: linear-gradient(90deg, #ff00ff, #00f3ff, #ff00ff);
+    background-size: 200% auto;
+    animation: shimmer 2.5s linear infinite;
+    color: white;
+    padding: 8px 26px;
+    font-size: 20px;
+    font-weight: 900;
+    display: inline-block;
+    transform: skewX(-10deg);
+    box-shadow: 0 0 15px #ff00ff;
+    margin-bottom: 20px;
+}
+
+/* ============================================================
+   4. SCORE SECTION – NEON BOXES
+   ============================================================ */
+.score-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.score-box {
+    background: rgba(255, 255, 255, 0.04);
+    padding: 14px 16px;
+    border-radius: 18px;
+    border: 2px solid rgba(0, 243, 255, 0.35);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 180px;
+    box-shadow: 0 0 12px rgba(0, 243, 255, 0.25);
+    transition: all 0.3s ease;
+}
+
+.score-box.winner-highlight {
+    border-color: #ff00ff;
+    box-shadow: 0 0 20px #ff00ff;
+}
+
+/* Mole / coin image */
+.coin-icon {
+    width: 40px;
+    transition: width 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(0 0 8px #00f3ff);
+}
+
+/* Winner mole pop */
+.score-box.winner-highlight .coin-icon {
+    width: 100px;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 25px #ff00ff) drop-shadow(0 0 15px #00f3ff);
+    animation: winnerBounce 1s infinite ease-in-out;
+}
+
+/* Score numbers */
+.final-value {
+    font-size: 32px;
+    color: #00f3ff;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.final-label {
+    font-size: 9px;
+    color: #9ffcff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score-divider {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+/* ============================================================
+   5. BUTTONS – NEON PUSH
+   ============================================================ */
+.overlay-actions {
+    display: flex;
+    gap: 14px;
+}
+
+.final-btn {
+    flex: 1;
+    padding: 12px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 9px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.15s;
+}
+
+.final-btn.replay {
+    background: #00f3ff;
+    color: #050505;
+    box-shadow: 0 4px 0 #009fb0;
+}
+
+.final-btn.home {
+    background: #ff00ff;
+    color: white;
+    box-shadow: 0 4px 0 #a600a6;
+}
+
+.final-btn:hover { filter: brightness(1.2); transform: translateY(-2px); }
+.final-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0,0,0,0.4); }
+
+/* ============================================================
+   6. ANIMATIONS
+   ============================================================ */
+@keyframes panelPop {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+    from { background-position: -200% center; }
+    to { background-position: 200% center; }
+}
+
+@keyframes starPulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+}
+
+@keyframes winnerBounce {
+    0%, 100% { transform: translateY(0) scale(1.2); }
+    50% { transform: translateY(-15px) scale(1.3); }
+}
+
+@keyframes overlayFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+
+/* Ensure the song stays hidden */
+#victoryMusic {
+    display: none;
+}
+
+/* Add a glowing animation to the winner's box */
+.winner-highlight {
+    border: 3px solid #ccff00 !important;
+    box-shadow: 0 0 20px #ccff00 !important;
+    transform: scale(1.05);
+    background: rgba(204, 255, 0, 0.15) !important;
+    transition: all 0.3s ease;
+}
+
+/* Floating effect for the Big Picture */
+.winner-pic {
+    animation: winnerFloat 3s infinite ease-in-out;
+}
+
+@keyframes winnerFloat {
+    0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 10px #ccff00); }
+    50% { transform: translateY(-15px); filter: drop-shadow(0 0 30px #ccff00); }
+}

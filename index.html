@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Pixel Art Sky</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <audio id="bgmusic" src="sound/bkg.mp3" loop></audio>
+
+    <div class="background-scene">
+        <div class="sky">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+            <div class="cloud cloud-4"></div>
+            <div class="cloud cloud-5"></div>
+            <div class="cloud cloud-6"></div>
+            <div class="cloud cloud-7"></div>
+            <div class="cloud cloud-8"></div>
+            <div class="cloud cloud-9"></div>
+            <div class="cloud cloud-10"></div>
+        </div>
+        <div class="ground"></div>
+
+        <div class="arcade-machine-container">
+            <img src="images/image.png" alt="Arcade Game Machine" class="arcade-machine-image"> 
+            
+            <div class="control-panel">
+          
+            <!-- Controls Overlay (Used for overall screen shake/bump effect) -->
+            <div class="control-panel">
+                
+                <!-- Game Title -->
+                <h1 class="game-title">WHACK-A-<br>MOLE</h1>
+                
+                <!-- PLAY Button (ID is crucial for JS) -->
+                <button id="playButton" class="play-button">PLAY</button>
+                <audio id="clickSound" src="sound/click.mp3"></audio>
+
+                <!-- Joysticks (Interactive overlays - IDs are crucial for JS) -->
+                <div id="joystickLeft" class="joystick joystick-left"></div>
+                <div id="joystickRight" class="joystick joystick-right"></div>
+                
+                <!-- Action Buttons (Interactive overlays - IDs are crucial for JS) -->
+                <div id="actionButton1" class="action-button action-button-1"></div>
+                <div id="actionButton2" class="action-button action-button-2"></div>
+                <div id="actionButton3" class="action-button action-button-3"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+    安貝雅 | bea
+</footer>
+
+    <!-- The external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+:root {
+    /* Define the timing for the whole cycle (e.g., 20 seconds for a full day/night) */
+    --cycle-speed: 15s;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.background-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- SKY ANIMATION --- */
+.sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    animation: skyShift var(--cycle-speed) linear infinite;
+    overflow: hidden;
+}
+
+/* --- GROUND ANIMATION --- */
+.ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    animation: groundShift var(--cycle-speed) linear infinite;
+}
+
+/* --- CLOUDS (Color is now variable) --- */
+.cloud {
+    position: absolute;
+    /* We use a variable for the color so all shadows change at once */
+    --cloud-color: white; 
+    background: var(--cloud-color);
+    width: 15px;
+    height: 15px;
+    border-radius: 0;
+    opacity: 0.95; 
+    animation: moveClouds linear infinite, cloudShift var(--cycle-speed) linear infinite;
+    border: 1px solid var(--cloud-color); 
+}
+
+/* --- ANIMATION KEYFRAMES --- */
+
+@keyframes skyShift {
+    0%, 100%, 40% { background-color: #50d5ff; } /* Day Blue */
+    50%, 90% { background-color: #0b1021; }      /* Night Navy */
+}
+
+@keyframes groundShift {
+    0%, 100%, 40% { background-color: #10d000; } /* Day Green */
+    50%, 90% { background-color: #054d00; }      /* Dark Night Green */
+}
+
+@keyframes cloudShift {
+    0%, 100%, 40% { 
+        --cloud-color: white; 
+        opacity: 0.95;
+    } 
+    50%, 90% { 
+        --cloud-color: #4b5b7a; /* Muted Blue-Grey for Night */
+        opacity: 0.6;
+    }
+}
+
+/* --- CLOUD SHAPES (Modified to use var(--cloud-color)) --- */
+/* --- CLOUD SHAPES (Fixed: All using var(--cloud-color) and dual animation times) --- */
+
+.cloud-1 {
+    top: 15%; left: -20%; 
+    /* IMPORTANT: Note the comma separating the two animation times */
+    animation-duration: 25s, var(--cycle-speed);
+    box-shadow: 
+        15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 
+        0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color),
+        15px 15px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color);
+}
+
+.cloud-2 {
+    top: 35%; left: -50%; 
+    animation-duration: 35s, var(--cycle-speed);
+    box-shadow: 
+        15px -30px 0 var(--cloud-color), 30px -30px 0 var(--cloud-color), 45px -30px 0 var(--cloud-color),
+        0px -15px 0 var(--cloud-color), 15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 60px -15px 0 var(--cloud-color),
+        0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color), 75px 0px 0 var(--cloud-color),
+        30px 15px 0 var(--cloud-color), 45px 15px 0 var(--cloud-color);
+}
+
+.cloud-3 {
+    top: 25%; left: -10%; 
+    animation-duration: 30s, var(--cycle-speed);
+    box-shadow: 
+        15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color),
+        0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color);
+}
+
+.cloud-4 { 
+    top: 5%; left: -80%;
+    animation-duration: 40s, var(--cycle-speed);
+    box-shadow:
+        15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color),
+        0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color),
+        15px 15px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color);
+}
+
+.cloud-5 { 
+    top: 50%; left: -100%; 
+    animation-duration: 20s, var(--cycle-speed);
+    box-shadow:
+        0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color);
+}
+
+.cloud-6 {
+    top: 10%; left: -30%;
+    animation-duration: 45s, var(--cycle-speed);
+    box-shadow:
+        15px -30px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color),
+        0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color);
+}
+
+.cloud-7 {
+    top: 40%; left: -120%;
+    animation-duration: 38s, var(--cycle-speed);
+    box-shadow:
+        0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color),
+        15px 15px 0 var(--cloud-color), 30px 15px 0 var(--cloud-color);
+}
+
+.cloud-8 {
+    top: 5%; left: -60%;
+    animation-duration: 50s, var(--cycle-speed);
+    box-shadow:
+        15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color),
+        0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color);
+}
+
+.cloud-9 {
+    top: 45%; left: -10%;
+    animation-duration: 22s, var(--cycle-speed);
+    box-shadow:
+        15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color),
+        0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color);
+}
+
+.cloud-10 {
+    top: 30%; left: -90%;
+    animation-duration: 33s, var(--cycle-speed);
+    box-shadow:
+        15px -15px 0 var(--cloud-color), 30px -15px 0 var(--cloud-color), 45px -15px 0 var(--cloud-color), 60px -15px 0 var(--cloud-color),
+        0px 0px 0 var(--cloud-color), 15px 0px 0 var(--cloud-color), 30px 0px 0 var(--cloud-color), 45px 0px 0 var(--cloud-color), 60px 0px 0 var(--cloud-color);
+}
+/* --- SHARED ANIMATION LOGIC --- */
+@keyframes moveClouds {
+    0% { transform: translateX(-100%) scale(var(--scale, 1)); }
+    100% { transform: translateX(200vw) scale(var(--scale, 1)); }
+}
+
+/* Keep your existing cloud scales here... */
+.cloud-1 { --scale: 2.0; }
+.cloud-2 { --scale: 3.0; }
+/* ... etc ... */
+
+
+
+/* --- ARCADE MACHINE BASE STYLES (LARGEST POSSIBLE SCALE) --- */
+/* --- ARCADE MACHINE BASE STYLES (FULL SCREEN) --- */
+.arcade-machine-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 20;
+}
+
+.arcade-machine-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* --- CONTROL PANEL OVERLAYS (No positioning changes, retaining proportional size) --- */
+.control-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.1s ease-out; 
+}
+
+/* JavaScript Hook for Press Effect */
+.control-panel.bumping {
+    transform: translateY(2px); 
+}
+
+
+
+
+/* --- GAME TITLE (MOVED SLIGHTLY LOWER) --- */
+.game-title {
+    position: absolute;
+    /* KEY CHANGE: Moved from 25% to 30% */
+    top: 30%; 
+    left: 50%;
+    transform: translateX(-50%);
+    
+    font-size: clamp(1.8em, 6vw, 5em); 
+    line-height: 1.0; 
+    
+    font-family: 'Press Start 2P', cursive;
+    color: yellow;
+    text-shadow: 3px 3px #000; 
+    text-align: center;
+    z-index: 30;
+    pointer-events: none;
+}
+
+
+/* --- PLAY BUTTON (Adjusted to maintain spacing below the new title position) --- */
+.play-button {
+    position: absolute;
+    /* Adjusted from 55% to 60% to maintain vertical spacing below the title */
+    top: 65%; 
+    left: 50%;
+    transform: translateX(-50%);
+    
+    width: 10%; 
+    height: 7%; 
+    background-color: #ffd700; 
+    border: none;
+    border-radius: 6px;
+    font-family: 'Press Start 2P', cursive; 
+    font-size: clamp(0.9em, 2vw, 1.5em);
+    color: #333;
+    cursor: pointer;
+    text-shadow: 1px 1px #8b2500;
+    box-shadow: 0 6px 0 #8b2500; 
+    transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+    z-index: 30; 
+}
+/* ... rest of the CSS remains the same ... */
+/* ... rest of the CSS remains the same ... */
+
+/* Play Button States from JavaScript (No change needed) */
+.play-button.loading {
+    background-color: #ff00ff; 
+    transform: translateX(-50%) translateY(3px); 
+    box-shadow: 0 3px 0 #b300b3; 
+}
+
+
+
+
+/* --- JOYSTICKS & ACTION BUTTONS (No change needed) --- */
+/* ... (Joystick and Action Button CSS remains the same) ... */
+
+/* --- JOYSTICKS & ACTION BUTTONS (No change needed) --- */
+/* ... (Joystick and Action Button CSS remains the same) ... */
+
+/* --- JOYSTICKS & ACTION BUTTONS (No changes needed) --- */
+/* ... (Joystick and Action Button CSS remains the same) ... */
+
+/* --- JOYSTICK OVERLAYS (No changes needed, scales with container) --- */
+.joystick {
+    position: absolute;
+    width: 14%; 
+    height: 25%; 
+    background-color: transparent; 
+    cursor: pointer;
+    z-index: 30; 
+    transition: transform 0.1s; 
+}
+
+.joystick-left {
+    bottom: 5%; 
+    left: 17%; 
+}
+
+.joystick-right {
+    bottom: 5%; 
+    right: 17%; 
+}
+
+/* Joystick States from JavaScript */
+.joystick.pressed {
+    transform: translateY(7px); 
+}
+
+/* --- ACTION BUTTON OVERLAYS (No changes needed, scales with container) --- */
+.action-button {
+    position: absolute;
+    width: 10%; 
+    height: 8%; 
+    background-color: transparent; 
+    cursor: pointer;
+    z-index: 30;
+    border-radius: 50%; 
+}
+
+.action-button-1 {
+    bottom: 12%; 
+    left: 38%; 
+}
+
+.action-button-2 {
+    bottom: 12%; 
+    left: 49%; 
+}
+
+.action-button-3 {
+    bottom: 12%; 
+    left: 60%; 
+}
+
+
+
+/* --- CSS for Interactive Controls --- */
+
+/* Base style for the controls (assuming they are positioned as overlays) */
+.joystick {
+    /* ... existing styles ... */
+    transition: transform 0.1s ease-out; /* Add smooth transition */
+}
+
+/* 1. Joystick Tilt Effect */
+.joystick-left.tilted {
+    /* Example: Tilt left and slightly down */
+    transform: rotateZ(-5deg) translateY(5px); 
+    box-shadow: 0 5px 0 0px var(--joystick-shadow-color); /* Adjust shadow to look tilted */
+}
+
+.joystick-right.tilted {
+    /* Example: Tilt right and slightly down */
+    transform: rotateZ(5deg) translateY(5px);
+    box-shadow: 0 5px 0 0px var(--joystick-shadow-color);
+}
+
+/* Base style for action buttons */
+.action-button {
+    /* ... existing styles ... */
+    transition: transform 0.05s ease-out, box-shadow 0.05s ease-out; /* Add smooth transition */
+    box-shadow: 0 4px 0 0px var(--button-shadow-color); /* Define a base shadow */
+}
+
+/* 2. Button Press Effect (Applies to Action Buttons and Joysticks for a 'depressed' look) */
+.pressed {
+    /* Move the button down by the amount of the original shadow to simulate a press */
+    transform: translateY(4px); 
+    /* Remove the bottom shadow to complete the pressed look */
+    box-shadow: 0 0px 0 0px var(--button-shadow-color); 
+}
+
+/* Apply the pressed effect to the Joysticks too, if you want them to 'sink' */
+.joystick.pressed {
+    transform: translateY(5px); /* Move down slightly */
+    box-shadow: 0 0px 0 0px var(--joystick-shadow-color);
+}
+
+.site-footer {
+    position: fixed;
+    bottom: 8px;
+    right: 12px; /* change to left if you want bottom-left */
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 9999;
+    pointer-events: none; /* prevents blocking clicks */
+}

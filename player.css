@@ -1,0 +1,287 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Hide anything that goes beyond the viewport */
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.background-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- SKY & GROUND (No Change) --- */
+.sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background-color: #50d5ff; 
+    overflow: hidden;
+}
+
+.ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background-color: #10d000;
+}
+
+/* --- CLOUDS (Pixelated Look - BASE SIZE INCREASED) --- */
+.cloud {
+    position: absolute;
+    background: white;
+    /* BASE PIXEL UNIT INCREASED from 10px to 15px */
+    width: 15px;
+    height: 15px;
+    border-radius: 0;
+    opacity: 0.95; 
+    animation: moveClouds linear infinite;
+    border: 1px solid white; 
+}
+
+/* --- CLOUD SHAPES (Offsets adjusted for new 15px base unit) --- */
+
+/* Cloud-1 (Adjusted offsets) */
+.cloud-1 {
+    top: 15%;
+    left: -20%; 
+    animation-duration: 25s;
+    box-shadow: 
+        /* Offsets are now multiples of 15px (e.g., 15px, 30px, 45px) */
+        15px -15px 0 white, 30px -15px 0 white, 45px -15px 0 white, 
+        0px 0px 0 white, 15px 0px 0 white, 30px 0px 0 white, 45px 0px 0 white, 60px 0px 0 white,
+        15px 15px 0 white, 30px 15px 0 white;
+}
+
+/* Cloud-2 (Adjusted offsets) */
+.cloud-2 {
+    top: 35%;
+    left: -50%;
+    animation-duration: 35s;
+    box-shadow: 
+        15px -30px 0 white, 30px -30px 0 white, 45px -30px 0 white,
+        0px -15px 0 white, 15px -15px 0 white, 30px -15px 0 white, 45px -15px 0 white, 60px -15px 0 white,
+        0px 0px 0 white, 15px 0px 0 white, 30px 0px 0 white, 45px 0px 0 white, 60px 0px 0 white, 75px 0px 0 white,
+        30px 15px 0 white, 45px 15px 0 white;
+}
+
+/* Cloud-3 (Adjusted offsets) */
+.cloud-3 {
+    top: 25%;
+    left: -10%;
+    animation-duration: 30s;
+    box-shadow: 
+        15px -15px 0 white, 30px -15px 0 white,
+        0px 0px 0 white, 15px 0px 0 white, 30px 0px 0 white, 45px 0px 0 white;
+}
+
+/* Cloud-4 (Adjusted offsets) */
+.cloud-4 { 
+    top: 5%;
+    left: -80%;
+    animation-duration: 40s;
+    box-shadow:
+        15px -15px 0 white, 30px -15px 0 white,
+        0px 0px 0 white, 15px 0px 0 white, 30px 0px 0 white, 45px 0px 0 white,
+        15px 15px 0 white, 30px 15px 0 white;
+}
+
+/* Cloud-5 (Adjusted offsets) */
+.cloud-5 { 
+    top: 50%; 
+    left: -100%; 
+    animation-duration: 20s;
+    box-shadow:
+        0px 0px 0 white, 15px 0px 0 white, 30px 0px 0 white;
+}
+
+/* Cloud-6 (Adjusted offsets) */
+.cloud-6 {
+    top: 10%; 
+    left: -30%;
+    animation-duration: 45s; 
+    box-shadow:
+        15px -30px 0 white, 30px -15px 0 white, 45px -15px 0 white,
+        0px 0px 0 white, 15px 0px 0 white, 30px 0px 0 white, 45px 0px 0 white, 60px 0px 0 white;
+}
+
+/* --- NEW CLOUDS ADDED (7, 8, 9, 10) --- */
+
+.cloud-7 {
+    top: 40%;
+    left: -120%; /* Very far left start */
+    animation-duration: 38s;
+    box-shadow:
+        0px 0px 0 white, 15px 0px 0 white, 30px 0px 0 white, 45px 0px 0 white,
+        15px 15px 0 white, 30px 15px 0 white;
+}
+
+.cloud-8 {
+    top: 5%; /* Very high */
+    left: -60%;
+    animation-duration: 50s; /* Very slow */
+    box-shadow:
+        15px -15px 0 white, 30px -15px 0 white, 45px -15px 0 white,
+        0px 0px 0 white, 15px 0px 0 white, 30px 0px 0 white, 45px 0px 0 white;
+}
+
+.cloud-9 {
+    top: 45%;
+    left: -10%;
+    animation-duration: 22s; /* Fast */
+    box-shadow:
+        15px -15px 0 white, 30px -15px 0 white,
+        0px 0px 0 white, 15px 0px 0 white;
+}
+
+.cloud-10 {
+    top: 30%;
+    left: -90%;
+    animation-duration: 33s;
+    box-shadow:
+        15px -15px 0 white, 30px -15px 0 white, 45px -15px 0 white, 60px -15px 0 white,
+        0px 0px 0 white, 15px 0px 0 white, 30px 0px 0 white, 45px 0px 0 white, 60px 0px 0 white;
+}
+
+/* Animation for moving clouds (No Change) */
+@keyframes moveClouds {
+    0% { transform: translateX(-100%) scale(var(--scale, 1)); } /* Start far left */
+    100% { transform: translateX(200vw) scale(var(--scale, 1)); } /* Move across to far right */
+}
+
+/* Applying specific scales to clouds using CSS variables (ALL SCALES INCREASED) */
+/* The combination of larger base pixel size and increased scale makes them much bigger. */
+.cloud-1 { --scale: 2.0; } /* Was 1.5 */
+.cloud-2 { --scale: 3.0; } /* Was 2.2 */
+.cloud-3 { --scale: 1.8; } /* Was 1.2 */
+.cloud-4 { --scale: 2.5; } /* Was 1.8 */
+.cloud-5 { --scale: 1.2; } /* Was 0.8 (Fastest, closest layer) */
+.cloud-6 { --scale: 1.5; } /* Was 1.0 */
+.cloud-7 { --scale: 2.1; } /* New large cloud */
+.cloud-8 { --scale: 1.0; } /* New distant cloud (Slowest) */
+.cloud-9 { --scale: 1.3; } /* New small, fast cloud */
+.cloud-10 { --scale: 2.3; } /* New large, medium speed cloud */
+
+/* Add this to your existing style.css */
+
+
+
+
+
+
+
+
+/* --- ARCADE MACHINE BASE STYLES (LARGEST POSSIBLE SCALE) --- */
+/* --- ARCADE MACHINE BASE STYLES (FULL SCREEN) --- */
+.arcade-machine-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 20;
+}
+
+.arcade-machine-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+
+
+/* Control panel: centers everything */
+.control-panel {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    z-index: 30;
+}
+
+/* Game title */
+.game-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(20px, 4vw, 50px);
+    color: #ffeb3b;
+    text-shadow: 4px 4px #000;
+    margin-bottom: 10px;
+    pointer-events: none;
+}
+
+/* Buttons container */
+.menu-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 5px;
+}
+
+/* Generic arcade button style */
+.menu-btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(12px, 1.5vw, 18px);
+    padding: 5px;
+    border: 3px solid #000;
+    border-radius: 10px;
+    cursor: pointer;
+    text-shadow: 2px 2px #000;
+    transition: transform 0.15s ease, background 0.15s ease;
+    width: 80%;
+    max-width: 500px;
+}
+
+/* Hover & active effects */
+.menu-btn:hover {
+    transform: scale(1.05);
+}
+.menu-btn:active {
+    transform: translateY(3px) scale(0.96);
+    box-shadow: 0 3px #9c5d00;
+}
+
+/* Player 1 button: red */
+.player-1-btn {
+    background-color: #ff1744;
+    color: #fff;
+}
+
+/* Player 2 button: green */
+.player-2-btn {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+/* Back button: blue */
+.back-btn {
+    background-color: #2196f3;
+    color: #fff;
+    width: 30%;
+    max-width: 200px;
+    margin-top: 15px;
+    padding: 15px 20px;
+}
+
+.back-btn:hover {
+    background-color: #1976d2;
+    transform: scale(1.05);
+}
+.back-btn:active {
+    transform: translateY(3px) scale(0.96);
+}

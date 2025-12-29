@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whack-a-Mole Fullscreen</title>
+    <link rel="stylesheet" href="singlePlayer.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    </head>
+<body> 
+    
+    <div class="background-scene">
+        <div class="sky">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+            <div class="cloud cloud-4"></div>
+            <div class="cloud cloud-5"></div>
+            <div class="cloud cloud-6"></div>
+            <div class="cloud cloud-7"></div>
+            <div class="cloud cloud-8"></div>
+            <div class="cloud cloud-9"></div>
+            <div class="cloud cloud-10"></div>
+        </div>
+        <div class="ground"></div>
+    </div>
+    <div class="hud">
+        <div class="top-row">
+            <div class="score-container">
+                <span class="score">0</span>
+            </div>
+            
+            <div class="timer-bar-container">
+                <div class="time-left" style="width: 99%;"></div> 
+            </div>
+        </div>
+
+        <div class="levels">
+            <input type="radio" name="level" id="easy" checked>
+            <label for="easy">Easy</label>
+            
+            <input type="radio" name="level" id="medium">
+            <label for="medium">Medium</label>
+            
+            <input type="radio" name="level" id="hard">
+            <label for="hard">Hard</label>
+        </div>
+    </div>
+    
+    <div class="home-button-container">
+        <a href="index.html" id="homeLink" onclick="event.preventDefault()">
+            <button class="home-button" id="playBtn">
+                <img src="images/home.png" alt="Game Control" id="controlIconImage" class="home-icon">
+            </button>
+        </a> 
+        
+        <div id="controlMenu" class="context-menu" style="display: none;">
+            <button id="menuActionBtn" class="menu-btn"></button> 
+            <button id="menuHomeBtn" class="menu-btn"> HOME</button>
+        </div>
+    </div>
+    
+    <div class="game">
+        <div class="hole"><div class="mole"></div><div class="bomb">💣</div></div>
+        <div class="hole"><div class="mole"></div><div class="bomb">💣</div></div>
+        <div class="hole"><div class="mole"></div><div class="bomb">💣</div></div>
+        <div class="hole"><div class="mole"></div><div class="bomb">💣</div></div>
+        <div class="hole"><div class="mole"></div><div class="bomb">💣</div></div>
+        <div class="hole"><div class="mole"></div><div class="bomb">💣</div></div>
+        <div class="hole"><div class="mole"></div><div class="bomb">💣</div></div>
+        <div class="hole"><div class="mole"></div><div class="bomb">💣</div></div>
+        <div class="hole"><div class="mole"></div><div class="bomb">💣</div></div>
+        </div>
+
+<div class="live-feed"></div>
+
+
+
+<div id="gameOverOverlay" class="game-overlay" style="display:none;">
+    <div class="result-panel">
+        <div class="header-area">
+            <div class="stars">
+                <span class="star-anim">⭐</span>
+                <span class="star-anim">⭐</span>
+                <span class="star-anim">⭐</span>
+                <span class="star-anim">⭐</span>
+                <span class="star-anim">⭐</span>
+            </div>
+            <div class="result-banner">NEW RECORD!</div>
+        </div>
+
+        <div class="final-scores">
+            <div class="final-box">
+                <img src="images/mole.png" class="coin-icon">
+                <div class="score-data">
+                    <div class="final-value p1-final-score">0</div>
+                    <div class="final-label">PLAYER 1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="final-actions">
+            <button id="restartGameBtn" class="final-btn replay">REPLAY</button>
+            <button id="goHomeBtn" class="final-btn home">HOME</button>
+        </div>
+    </div>
+</div>
+
+<audio id="victoryMusic" src="sound/score.mp3" preload="auto"></audio>
+
+    <script src="singlePlayer.js"></script>
+</body>
+</html>
+

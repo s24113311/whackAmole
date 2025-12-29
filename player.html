@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Players</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="player.css">
+</head>
+<body>
+    <!-- Background music -->
+    <audio id="bgmusic" src="sound/retro-game-arcade-236133.mp3" loop></audio>
+
+    <div class="background-scene">
+        <!-- Sky with clouds -->
+        <div class="sky">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+            <div class="cloud cloud-4"></div>
+            <div class="cloud cloud-5"></div>
+            <div class="cloud cloud-6"></div>
+            <div class="cloud cloud-7"></div>
+            <div class="cloud cloud-8"></div>
+            <div class="cloud cloud-9"></div>
+            <div class="cloud cloud-10"></div>
+        </div>
+
+        <!-- Ground -->
+        <div class="ground"></div>
+
+        <!-- Arcade machine -->
+        <div class="arcade-machine-container">
+            <img src="images/image.png" alt="Arcade Game Machine" class="arcade-machine-image">
+
+            <!-- Control panel overlay -->
+            <div class="control-panel">
+                <h1 class="game-title">SELECT PLAYERS</h1>
+
+                <div class="menu-buttons-container">
+                    <button id="player1Button" class="menu-btn player-1-btn">1-PLAYER: HIT THE MOLE! 🎯</button>
+                    <button id="player2Button" class="menu-btn player-2-btn">2-PLAYERS: P1- MONEY MOLE | P2-ANGRY MOLE 🎮</button>
+                    <button id="backButton" class="menu-btn back-btn">BACK</button>
+                </div>
+
+                <!-- Click sound -->
+                <audio id="clickSound" src="sound/click.mp3"></audio>
+
+                <!-- Joysticks (for styling purposes) -->
+                <div id="joystickLeft" class="joystick joystick-left"></div>
+                <div id="joystickRight" class="joystick joystick-right"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="player.js"></script>
+</body>
+</html>
